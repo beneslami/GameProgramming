@@ -6,6 +6,9 @@
 #include <unistd.h>
 #include <sys/select.h>
 #include <termios.h>
+
+#define GAME_SPEED 1
+
 using namespace std;
 struct termios orig_termios;
 
@@ -48,9 +51,19 @@ static int getch()
     }
 }
 
+Game::Game(){
+    frameCount = 0;
+    startTime = 0;
+    lastTime = 0;
+}
+
+Game::~Game() {
+
+}
+
 bool Game::run(){
     char key = ' ';
-    frameCount = 0;
+    startTime = std::time(NULL) * 1000;
     set_conio_terminal_mode();
     while(key != 'q'){
         while(!getInput(&key)){
@@ -59,8 +72,9 @@ bool Game::run(){
         cout << "Here's what you pressed: " << key << endl;
         cin.ignore();
     }
-    cout << frameCount << endl;
-    cout << "end of the game\n";
+    time_t last = std::time(NULL) * 1000;
+    cout << "---- " <<  last - startTime << " milliseconds lasts till the end of the program\n";
+    cout << "---- " << frameCount / ((last - startTime)/1000) << " fps\n";
     return true;
 }
 
@@ -73,7 +87,11 @@ bool Game::getInput(char *c) {
 }
 
 void Game::timerUpdate() {
+    double current_Time = std::time(NULL) - lastTime;
+    if (current_Time < GAME_SPEED){
+        return;
+    }
     frameCount++;
-
+    lastTime = std::time(NULL);
 }
 
