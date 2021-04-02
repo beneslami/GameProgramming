@@ -6,23 +6,23 @@
 #define GAME_H
 
 #include <ctime>
-#include "../Header Files/drawEngine.h"
+#include "drawEngine.h"
 
 class Game{
 public:
-    bool run(void);
-    Game();
-    ~Game();
+    bool run();
 
 protected:
     void timerUpdate();
-    bool getInput(char*);
-
+    bool getInput(int *);
 
 private:
     double frameCount;
     time_t  startTime;
     time_t lastTime;
+    DrawEngine drawArea;
+    int posx;
+    int posy;
 };
 
 #endif
