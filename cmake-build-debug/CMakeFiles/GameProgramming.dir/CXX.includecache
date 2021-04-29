@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/ben/Desktop/GameProgramming/src/drawEngine.h
+
+/Users/ben/Desktop/GameProgramming/src/game.cpp
+iostream
+-
+cmath
+-
+curses.h
+-
+game.h
+/Users/ben/Desktop/GameProgramming/src/game.h
+timeGetTime.h
+/Users/ben/Desktop/GameProgramming/src/timeGetTime.h
+
+/Users/ben/Desktop/GameProgramming/src/game.h
+ctime
+-
+drawEngine.h
+/Users/ben/Desktop/GameProgramming/src/drawEngine.h
+
+/Users/ben/Desktop/GameProgramming/src/main.cpp
+game.h
+/Users/ben/Desktop/GameProgramming/src/game.h
+
+/Users/ben/Desktop/GameProgramming/src/timeGetTime.h
+sys/time.h
+-
+
