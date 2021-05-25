@@ -2,27 +2,36 @@
 // Created by Ben on 3/26/21.
 //
 
-#ifndef GAME_H
-#define GAME_H
+#ifndef game_h
+#define game_h
 
-#include <ctime>
-#include "drawEngine.h"
+#include "level.h"
 
-class Game{
-public:
-    bool run();
+namespace EvilMonkeys
+{
+    typedef Concern::Counting_Aspect<Target::Bomb> Bomb;
+    typedef Concern::Counting_Aspect<Target::Fireball> Fireball;
+    typedef Concern::Counting_Aspect<Target::Mage> Mage;
 
-protected:
-    void timerUpdate();
-    bool getInput(int *);
+#define GAME_SPEED 50
+#define KEY_QUIT_GAME 'q'
 
-private:
-    double frameCount;
-    time_t  startTime;
-    time_t lastTime;
-    DrawEngine drawArea;
-    int posx;
-    int posy;
-};
+#define NUM_ENEMY 1
+#define NUM_BOMB 20
 
+    class DrawEngine;
+    class Level;
+
+    class Game
+    {
+        std::shared_ptr<Level> world;
+
+    public:
+        void run(DrawEngine* drawArea);
+
+    private:
+        void timerUpdate_(double& lastTime);
+
+    };
+}
 #endif

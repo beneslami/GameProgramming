@@ -1,97 +1,96 @@
 //
 // Created by Ben on 3/26/21.
 //
-#include <iostream>
-#include <cmath>
-#include <curses.h>
 #include "game.h"
-#include "timeGetTime.h"
-using namespace std;
 
-#define GAME_SPEED 50
+#include <sys/time.h>
 
+bool kbhit(void);
+bool getKeyInput(int& key);
 
-bool Game::run(void)
+void EvilMonkeys::Game::run(DrawEngine* drawArea)
 {
-    posx = 5;
-    posy = 5;
+    //setup a new world
+    world = std::make_shared<Level>(drawArea);
 
-    drawArea.createSprite(0, '$');
-    drawArea.drawSprite(0, posx, posy);
-    int key = ' ';
+    auto playerSprite { drawArea->registerSprite(SPRITE_PLAYER, PLAYER_CHAR, GREEN_BLACK) };
 
-    startTime = timeGetTime();
-    frameCount = 0;
-    lastTime = 0;
+    std::unique_ptr<Sprite> hero{ std::make_unique<Mage>(drawArea, playerSprite) };
+    hero->__hookToLevel( world.get() );
 
-    initscr();
-    curs_set(0);
-    keypad(stdscr, TRUE);
+    auto enemySprite { drawArea->registerSprite(SPRITE_ENEMY, ENEMY_CHAR, YELLOW_BLACK) };
+    for (int i{0}; i < NUM_ENEMY; ++i)
+        world->spawnNPC( enemySprite );
 
-    while (key != 'q')
+    auto bombSprite { drawArea->registerSprite(SPRITE_BOMB, BOMB_CHAR) };
+    for (int i{0}; i < NUM_BOMB; ++i)
+        world->spawnNPC( bombSprite );
+
+    auto lastTime = double{0};
+    auto key = int{' '};
+
+    nodelay(stdscr, TRUE);
+
+    while (key != KEY_QUIT_GAME)
     {
-        while (!getInput(&key))
+        while (!getKeyInput(key))
         {
-            timerUpdate();
+            if (!world->isPaused())
+                this->timerUpdate_(lastTime);
+            else
+                drawArea->printScore("paused ", 72);
 
+            // constantly refresh the windows
+            drawArea->refresh();
         }
 
-
-        //Erase the sprite at the old position
-        drawArea.eraseSprite(posx, posy);
-
-        //Modify position
-        switch (key)
-        {
-            case KEY_UP:
-                posy--;
-                break;
-            case KEY_DOWN:
-                posy++;
-                break;
-            case KEY_LEFT:
-                posx--;
-                break;
-            case KEY_RIGHT:
-                posx++;
-                break;
-        }
-        //Draw at the new position
-        drawArea.drawSprite(0, posx, posy);
-
-
-        //cout << "here is what you pressed: "<< key << endl;
+        // pass the pressed key to the level
+        world->isKeyPressExecuteAction(key);
     }
+}
 
+void EvilMonkeys::Game::timerUpdate_(double & lastTime)
+{
+    auto tv { std::make_unique<timeval>() };
+    gettimeofday( tv.get(), nullptr );
 
-    cout << frameCount / (abs(timeGetTime()-startTime)/1000) << " fps " << endl;
-    cout << frameCount << endl;
-    cout << "end of the game!" << endl;
-    return true;
+    auto currentTime { (tv->tv_sec + double(tv->tv_usec)/1000000.0)*1000 - lastTime };
+
+    if (currentTime < GAME_SPEED)
+        return;
+
+    //----------------------------------
+
+    // this is for NPC not our hero
+    world->update(lastTime);
+
+    //----------------------------------
+
+    gettimeofday( tv.get(), nullptr );
+    lastTime = (tv->tv_sec + double(tv->tv_usec)/1000000.0)*1000;
 }
 
 
-bool Game::getInput(int *c)
+bool getKeyInput(int & key)
 {
-    *c = getch(); //Calling getch directly. No need for silly kbhit. getch will tell whether a key was pressed or not.
-    if (*c != ERR)
+    if (kbhit())
     {
+        key = getch();
         return true;
     }
 
     return false;
 }
 
-void Game::timerUpdate(void)
+bool kbhit()
 {
-    double currentTime = timeGetTime() - lastTime;
+    auto ch {getch()};
 
-    if (currentTime < GAME_SPEED){
-
-        return;
+    if (ch != ERR)
+    {
+        ungetch(ch);
+        return true;
     }
 
-    frameCount++;
-
-    lastTime = timeGetTime();
+    return false;
 }
