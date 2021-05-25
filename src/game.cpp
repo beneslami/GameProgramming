@@ -13,17 +13,17 @@ void EvilMonkeys::Game::run(DrawEngine* drawArea)
     //setup a new world
     world = std::make_shared<Level>(drawArea);
 
-    auto playerSprite { drawArea->registerSprite(SPRITE_PLAYER, PLAYER_CHAR, GREEN_BLACK) };
+    //int playerSprite { drawArea->registerSprite(SPRITE_PLAYER, PLAYER_CHAR, GREEN_BLACK) };
 
-    std::unique_ptr<Sprite> hero{ std::make_unique<Mage>(drawArea, playerSprite) };
+    std::unique_ptr<Sprite> hero{ std::make_unique<Mage>(drawArea, drawArea->registerSprite(SPRITE_PLAYER, PLAYER_CHAR, GREEN_BLACK)) };
     hero->__hookToLevel( world.get() );
 
-    auto enemySprite { drawArea->registerSprite(SPRITE_ENEMY, ENEMY_CHAR, YELLOW_BLACK) };
-    for (int i{0}; i < NUM_ENEMY; ++i)
+    int enemySprite { drawArea->registerSprite(SPRITE_ENEMY, ENEMY_CHAR, YELLOW_BLACK) };
+    for (int i=0; i < NUM_ENEMY; ++i)
         world->spawnNPC( enemySprite );
 
-    auto bombSprite { drawArea->registerSprite(SPRITE_BOMB, BOMB_CHAR) };
-    for (int i{0}; i < NUM_BOMB; ++i)
+    int bombSprite { drawArea->registerSprite(SPRITE_BOMB, BOMB_CHAR) };
+    for (int i=0; i < NUM_BOMB; ++i)
         world->spawnNPC( bombSprite );
 
     auto lastTime = double{0};

@@ -47,10 +47,10 @@ namespace Target {
 
     bool Mage::castSpell_()
     {
-        vector left {-1, 0};
-        vector right {1, 0};
-        vector up {0, -1};
-        vector down {0, 1};
+        vector left = {-1, 0};
+        vector right = {1, 0};
+        vector up = {0, -1};
+        vector down = {0, 1};
 
         if ( matchCurrentFacingDir(up) || matchCurrentFacingDir(down) )
             drawArea_->registerSprite(SPRITE_FIREBALL, '|');

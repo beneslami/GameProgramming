@@ -3,6 +3,7 @@
 //
 #include "game.h"
 #include <random>
+#include <stdio.h>
 
 bool isTermAvail = true; // check this global variable before ncurses calls
 
@@ -23,7 +24,7 @@ int main(int argc, const char * argv[])
 //----------------------------------
 
     std::random_device r;
-    std::seed_seq seed_seq{r(), r(), r(), r(), r(), r()};
+    std::seed_seq seed_seq {r(), r(), r(), r(), r(), r()};
     std::mt19937 engine{seed_seq};
 
     srand( (int) time( NULL ) + engine() );

@@ -8,19 +8,19 @@
 using namespace EvilMonkeys;
 
 Level::Level(DrawEngine *de, int wallTile, int w, int h)
-        : drawArea_{de}
-        , running_{false}
-        , width_{w}
-        , height_{h}
-        , startTime_{0}
-        , elapsedTime_{0}
-        , lastTimeReload_{0}
-        , maxBombsAllow_{0}
-        , numBombs_{0}
-        , player_{nullptr}
 {
     setMapTile_(wallTile);
     draw_( generatedDigitalMap_(100 - CHANCE_OF_EMPTY_TILE) );
+    drawArea_ = de;
+    running_ = false;
+    width_ = w;
+    height_ = h;
+    startTime_ = 0;
+    elapsedTime_ = 0;
+    lastTimeReload_ = 0;
+    maxBombsAllow_ = 0;
+    numBombs_ = 0;
+    player_ = nullptr;
 }
 
 Level::~Level()
