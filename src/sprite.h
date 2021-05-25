@@ -32,22 +32,20 @@ namespace EvilMonkeys
 
     public:
         Sprite(DrawEngine* de, int sprite_index, float xpos = 1, float ypos= 1, int i_lives = 1)
-                : classID_{SPRITE_CLASSID}
-                , drawArea_{de}
-                , spriteIndex_{sprite_index}
-                , numLives_{i_lives}
-                , isNPC_{true}
-                , pos_{xpos, ypos}
-                , facingDirection_{1, 0}
         {
-
+            classID_ = SPRITE_CLASSID;
+            drawArea_ = de;
+            spriteIndex_ = sprite_index;
+            numLives_ = i_lives;
+            isNPC_ = true;
+            pos_.x = xpos;
+            pos_.y = ypos;
+            facingDirection_.x = 1;
+            facingDirection_.y = 0;
         }
 
         ~Sprite(){
-            // erase the dying sprites
             erase_();
-
-            // and re-draw the still alive sprite that happen to be on the same spot of the dying sprite (in case of pick up something)
         }
 
         inline vector getPosition(void){ return pos_; }
@@ -61,8 +59,7 @@ namespace EvilMonkeys
 
         inline void setSpriteIndex(int new_index){ spriteIndex_ = new_index; }
         bool matchCurrentLocation(int xpos, int ypos);
-        bool matchCurrentFacingDir(vector dir = {0,0});
-
+        bool matchCurrentFacingDir(vector dir);
         inline int getLives(void){ return numLives_; }
 
         inline virtual void __addLives(int num = 1){ numLives_ += num; }

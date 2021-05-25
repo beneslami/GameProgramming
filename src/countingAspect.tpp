@@ -73,7 +73,14 @@ bool Counting_Aspect<Target>::__isKeyPressExecuteAction(int key)
 template <class Target>
 bool Counting_Aspect<Target>::spawnNPC(int sprite_index, int distanceToGoal, int xpos, int ypos, float xface, float yface)
 {
-    SpawnAction tjp{sprite_index, distanceToGoal, xpos, ypos, xface, yface, false};
+    SpawnAction tjp = { .s_index = sprite_index,
+                        .goalDistance = distanceToGoal,
+                        .xpos = xpos,
+                        .ypos = ypos,
+                        .xface = xface,
+                        .yface = yface,
+                        .ret = false
+                      };
     advice(&tjp);
 
     switch (sprite_index)

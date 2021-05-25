@@ -14,19 +14,20 @@ namespace EvilMonkeys
         int i_upKey_, i_downKey_, i_rightKey_, i_leftKey_;
 
     public:
-        Character(DrawEngine *de, int sprite_index, float sprite_xpos = 1
-                , float sprite_ypos = 1, int sprite_lives = 3
-                , int character_upKey = KEY_UP
-                , int character_downKey = KEY_DOWN
-                , int character_leftKey = KEY_LEFT
-                , int character_rightKey = KEY_RIGHT)
-                : Sprite(de, sprite_index, sprite_xpos, sprite_ypos, sprite_lives)
-                , i_upKey_{character_upKey}
-                , i_downKey_{character_downKey}
-                , i_rightKey_{character_rightKey}
-                , i_leftKey_{character_leftKey}
-        {
+        Character(DrawEngine *de1, int spriteIndex, float xpos, float ypos, int iLives, DrawEngine *de,
+                  int sprite_index,
+                  float sprite_xpos = 1,
+                  float sprite_ypos = 1,
+                  int sprite_lives = 3,
+                  int character_upKey = KEY_UP,
+                  int character_downKey = KEY_DOWN,
+                  int character_leftKey = KEY_LEFT,
+                  int character_rightKey = KEY_RIGHT) : Sprite(de, sprite_index, sprite_xpos, sprite_ypos, sprite_lives) {
             setClassID(CHARACTER_CLASSID);
+            i_upKey_ = character_upKey;
+            i_downKey_ = character_downKey;
+            i_rightKey_ = character_rightKey;
+            i_leftKey_ = character_leftKey;
             nonNPC();
         }
 

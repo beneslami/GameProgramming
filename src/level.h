@@ -87,7 +87,7 @@ namespace EvilMonkeys
         inline bool isPaused(){ return !running_; }
         inline void pause(){ refreshStatuses_(); running_ = false; }
 
-        auto const NPC(){ return NPC_sprites_; }
+        std::list<Sprite *> NPC(){ return NPC_sprites_; }
 
         bool spawnNPC(int sprite_index, int distanceToGoal = DISTANCE_TO_PLAYER, int xpos = -1, int ypos = -1, float xface = 0, float yface = 0);
 
