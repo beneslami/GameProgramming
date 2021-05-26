@@ -66,13 +66,8 @@ namespace EvilMonkeys
 
         inline Level* const getLevel(){ return level_; }
 
-        inline virtual void __idleUpdate(void)
-        {
-            // this is only for the inhereited classes not for myself
-            // because it's too early to know what should be implemented here
-            // but I can use it as the interface for all of my children
-            // thanks virtual late-binding... apply based pointer!
-        }
+        inline virtual void __idleUpdate(void);
+
         virtual bool __move(float xDir, float yDir);
 
         inline int getClassID(void){ return classID_; }

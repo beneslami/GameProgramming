@@ -10,8 +10,6 @@
 namespace Target
 {
 #define FULL_AMMO 9
-#define COOL_DOWN_RELOAD_IN_MILISECOND 500
-
     using namespace EvilMonkeys;
 
     class Mage : public Character

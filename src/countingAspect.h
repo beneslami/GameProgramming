@@ -5,11 +5,11 @@
 #ifndef countingAspect_h
 #define countingAspect_h
 
-namespace Concern {
+#include "drawEngine.h"
+#include "character.h"
+#include "level.h"
 
-#ifdef USE_EXPORT_KEYWORD
-    export
-#endif
+namespace Concern {
 
     using namespace EvilMonkeys;
 
@@ -63,16 +63,11 @@ namespace Concern {
 
         bool __isKeyPressExecuteAction(int key);
 
-        bool spawnNPC(int sprite_index, int distanceToGoal = DISTANCE_TO_PLAYER, int xpos = -1, int ypos = -1, float xface = 0, float yface = 0);
+        bool spawnNPC(int sprite_index, int distanceToGoal = 9, int xpos = -1, int ypos = -1, float xface = 0, float yface = 0);
 
         // sections for added methods to the component code (introduction)
         // int count() const { return counter_; }
     };
-
-#ifndef USE_EXPORT_KEYWORD
-#include "countingAspect.tpp"
-#endif
-
 }
 
 #endif

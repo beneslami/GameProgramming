@@ -2,6 +2,7 @@
 // Created by Ben on 5/25/21.
 //
 
+#include "countingAspect.h"
 
 // for Bomb
 template <class Target>

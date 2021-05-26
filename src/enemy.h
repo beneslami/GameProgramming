@@ -6,6 +6,7 @@
 #define enemy_h
 
 #include "sprite.h"
+#include "character.h"
 
 namespace EvilMonkeys
 {

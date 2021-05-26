@@ -3,6 +3,7 @@
 //
 
 #include "level.h"
+#include "character.h"
 
 using namespace EvilMonkeys;
 

@@ -9,7 +9,7 @@
 #include <list>
 #include <math.h>
 #include <iostream>
-
+#include "countingAspect.h"
 #include "mage.h"
 #include "fireball.h"
 #include "enemy.h"
@@ -109,8 +109,5 @@ namespace EvilMonkeys
     private:
         void refreshStatuses_(void);
     };
-
-#include "countingAspect.h"
-
 }
 #endif

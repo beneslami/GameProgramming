@@ -172,7 +172,6 @@ bool DrawEngine::gotoxy_(int xpos, int ypos)
     return !wmove(field_, ++ypos, ++xpos);
 }
 
-// to the Level
 void DrawEngine::createBackgroundTile_(int tileIndex, char img)
 {
     if (tileIndex >= 0 && tileIndex < 16)

@@ -15,7 +15,7 @@ namespace Target {
         {
             if (key == spellKey_)
             {
-                if (level_->getLastTimeReload() != 0 && level_->getElapsedTime() - level_->getLastTimeReload() < COOL_DOWN_RELOAD_IN_MILISECOND)
+                if (level_->getLastTimeReload() != 0 && level_->getElapsedTime() - level_->getLastTimeReload() < 10)
                     return false;
                 if( level_->getNumFireballs() > 0 )
                 {

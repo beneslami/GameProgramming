@@ -47,7 +47,6 @@ namespace EvilMonkeys
         WINDOW *field_;
         WINDOW *score_;
 
-        // digitalize map of characters
         int** map_;
 
         int screenWidth_, screenHeight_, score_size_;
@@ -57,7 +56,6 @@ namespace EvilMonkeys
         char tileImages_[16];
 
     public:
-        // make friend with Sprite so he can use those protected methods
         friend class Sprite;
         friend class Level;
 
