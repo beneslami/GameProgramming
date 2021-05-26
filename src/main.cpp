@@ -23,11 +23,12 @@ int main(int argc, const char * argv[])
 
 //----------------------------------
 
-    std::random_device r;
-    std::seed_seq seed_seq {r(), r(), r(), r(), r(), r()};
-    std::mt19937 engine{seed_seq};
+    //std::random_device r;
+    //std::seed_seq seed_seq{r(), r(), r(), r(), r(), r()};
+    //std::mt19937 engine{seed_seq};
 
-    srand( (int) time( NULL ) + engine() );
+    srand( (int) time( NULL ));
+    //srand( (int) time( NULL ) + engine() );
 
     EvilMonkeys::DrawEngine drawArea;
 

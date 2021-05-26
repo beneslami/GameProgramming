@@ -6,7 +6,7 @@
 #define mage_h
 
 #include "character.h"
-
+#include<iostream>
 namespace Target
 {
 #define FULL_AMMO 9

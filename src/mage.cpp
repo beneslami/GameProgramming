@@ -17,16 +17,13 @@ namespace Target {
             {
                 if (level_->getLastTimeReload() != 0 && level_->getElapsedTime() - level_->getLastTimeReload() < COOL_DOWN_RELOAD_IN_MILISECOND)
                     return false;
-
                 if( level_->getNumFireballs() > 0 )
                 {
                     for( auto& Iter : level_->NPC() )
-                        if ( Iter->is(FIREBALL_CLASSID) && Iter->matchCurrentFacingDir() )
+                        if ( Iter->is(FIREBALL_CLASSID) /*&& Iter->matchCurrentFacingDir()*/ )
                             return castSpell_();
-
                     return false;
                 }
-
                 return castSpell_();
             }
 
@@ -54,14 +51,10 @@ namespace Target {
 
         if ( matchCurrentFacingDir(up) || matchCurrentFacingDir(down) )
             drawArea_->registerSprite(SPRITE_FIREBALL, '|');
-
         if ( matchCurrentFacingDir(left) || matchCurrentFacingDir(right) )
             drawArea_->registerSprite(SPRITE_FIREBALL, '-');
-
         if (level_->getNumFireballs() < ammoCartridge_)
             return level_->spawnNPC(drawArea_->registerSprite(SPRITE_FIREBALL), -1, int(getX() + facingDirection_.x), int(getY() + facingDirection_.y), facingDirection_.x, facingDirection_.y);
-
         return false;
     }
-
 }
